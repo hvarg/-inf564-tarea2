@@ -46,7 +46,7 @@ void skyline_print (skyline *sl)
 {
   int i;
   for (i = 0; i < sl->n; i++) {
-    printf("%d, %d\n", sl->data[i]->x, sl->data[i]->y);
+    printf("%d %d\n", sl->data[i]->x, sl->data[i]->y);
   }
 }
 
@@ -61,7 +61,7 @@ skyline *skyline_find (int **b, int l, int r)
     skyline_append(res, strip_new(b[l][2], 0));
     return res;
   }
-  /* Dividir y conquistar */
+  /* Dividir y conquistar. T(n) = 2*T(n/2) + O(n) */
   int mid = (l+r)/2;
   skyline *sl = skyline_find(b, l, mid);
   skyline *sr = skyline_find(b, mid+1, r);
@@ -79,7 +79,7 @@ skyline *skyline_merge(skyline *s1, skyline *s2)
   skyline *res = skyline_new(s1->n + s2->n);
   int x, y, y1 = 0, y2 = 0,
       i = 0, j = 0;
-  while ( i < s1->n && j < s2->n) {
+  while ( i < s1->n && j < s2->n) { // O(s1->n + s2->n)
     if (s1->data[i]->x < s2->data[j]->x) { // itera comparando 'x'
       x = s1->data[i]->x;
       y1 = s1->data[i++]->y;
