@@ -3,6 +3,7 @@
 #include "read_adds.h"
 #include "skyline.h"
 
+/* Retorna el indice del strip.x>=x en tiempo O(log n) */
 int lower_bound (skyline *sol, int x)
 {
   int l = 0;
@@ -14,20 +15,6 @@ int lower_bound (skyline *sol, int x)
     else l = mid + 1;
   }
   return l;
-}
-
-int bs_lower_bound(int a[], int n, int x) {
-    int l = 0;
-    int h = n; // Not n - 1
-    while (l < h) {
-        int mid = (l + h) / 2;
-        if (x <= a[mid]) {
-            h = mid;
-        } else {
-            l = mid + 1;
-        }
-    }
-    return l;
 }
 
 int main (int argc, const char * args[])
