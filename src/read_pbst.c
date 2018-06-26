@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include "read_pbst.h"
 
-node ** read_pbst (FILE *fp, int *size)
+/* Lee un problema desde fp y lo transforma en un conjunto de nodos. */
+node **read_pbst (FILE *fp, int *size)
 {
   int i = 0, treelen = 0;
   float tmp = 0.0;
@@ -17,6 +18,7 @@ node ** read_pbst (FILE *fp, int *size)
   return nodes;
 }
 
+/* Crea un nodo de un arbol binario. */
 node * node_new (int v, float p)
 {
   node *n = malloc(sizeof(node));
@@ -27,6 +29,7 @@ node * node_new (int v, float p)
   return n;
 }
 
+/* Elimina un nodo. */
 void node_del (node *n)
 {
   if (n->left)  node_del(n->left);
@@ -34,6 +37,7 @@ void node_del (node *n)
   free(n);
 }
 
+/* Imprime un arbol binario por salida estandar. debug. */
 void tree_print (node *root)
 {
   if (root->left) printf("(%d, %.2f) <- ", root->left->v, root->left->p);
@@ -44,6 +48,7 @@ void tree_print (node *root)
   if (root->right) tree_print(root->right);
 }
 
+/* Calcula el costo del arbol. */
 float tree_cost (node *root, int h)
 {
   return root?

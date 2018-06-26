@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "read_pbst.h"
 
+/* Agregacion de hojas a un arbol binario bajo un criterio greedy para 
+ * mantener aquellas con mayor probabilidad arriba. */
 node *tree_add (node *root, node *new)
 {
   if (new->p <= root->p) {
@@ -24,19 +26,14 @@ int main (int argc, const char * args[])
 {
   int size, i;
   node **nodes, *root;
+  /* Mientras queden problemas por leer. */
   while( (nodes = read_pbst(stdin, &size)) ) {
-    printf("%d\n", size);
-    for (i = 0; i < size; printf("%.2f ", nodes[i++]->p) );
-    printf("\n");
-
-    root = nodes[0];
+    root = nodes[0]; // crea el arbol.
     for (i = 1; i < size; i++) {
       root = tree_add(root, nodes[i]);
     }
-    tree_print(root);
-    printf("=%.4f\n", tree_cost(root, 1));
+    printf("%.4f\n", tree_cost(root, 1));
 
-    //for (i = 0; i < size; node_del(nodes[i++]) );
     node_del(root);
     free(nodes);
   }
